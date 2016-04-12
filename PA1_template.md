@@ -1,4 +1,6 @@
 # Reproducible Research: Peer Assessment 1
+Steve Chiu  
+12 April 2016  
 
 
 ## Loading and preprocessing the data
@@ -83,7 +85,7 @@ mean(daysteps)
 ## [1] 10766.19
 ```
 
-A histogram is created:
+A histogram was saved as *plot1.png*, with the mean marked in red line.
 
 
 ```r
@@ -92,9 +94,6 @@ abline(v=mean(daysteps), col = "red", lwd = 2)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)
-
-The mean was marked as the red line in the chart above.
-
 
 ```r
 print("Medium = ")
@@ -114,7 +113,7 @@ median(daysteps)
 
 ## What is the average daily activity pattern?
 
-First we generate the total number of steps taken per interval into *timesteps*:
+First we generate the total number of steps taken per interval into *timesteps*.  A line chart was created in *plot2.png*.
 
 
 ```r
@@ -122,10 +121,11 @@ timesteps <- with(actclean, tapply(steps, interval, mean))
 # Transformed into a dataframe for the time series plotting
 meansteps <- data.frame(as.numeric(names(timesteps)), timesteps)
 names(meansteps) = c("interval", "steps")
+
 plot(meansteps, type="l", xlab="5-min Intervals", ylab="Average Number of Steps Across All Days", main="Average Daily Activity Pattern")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)
 
 The maximum of steps can be provided by the *max* and *which.max* functions:
 
@@ -238,7 +238,7 @@ mean(daystepsnew)
 ## [1] 10766.19
 ```
 
-A histogram is created:
+A histogram was created in *plot3.png*, with the mean marked as green line.
 
 
 ```r
@@ -246,10 +246,7 @@ hist(daystepsnew, xlab = "New Total Number of Steps Taken Per Day", main = "Hist
 abline(v=mean(daystepsnew), col = "green", lwd = 2)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)
-
-The mean was marked as the green line in the chart above.
-
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)
 
 ```r
 print("Medium = ")
@@ -281,7 +278,7 @@ actnew$wde <- sapply(actnew$wd, FUN = function(x) {if (x=="Saturday"| x=="Sunday
 actnew$wde <- as.factor(actnew$wde)
 ```
 
-Two line charts are drawn below to compare the daily activity pattern between weekdays and weekends:
+Two line charts are drawn below to compare the daily activity pattern between weekdays and weekends (saved as plot4.png).
 
 
 ```r
@@ -297,9 +294,9 @@ names(meanstepswe) = c("interval", "steps")
 meanstepswd <- cbind(meanstepswd, wde="weekday")
 meanstepswe <- cbind(meanstepswe, wde="weekend")
 meanstepswde <- rbind(meanstepswe, meanstepswd)
+
 g <- ggplot(meanstepswde, aes(interval, steps))
 g + geom_line() + facet_grid(wde ~ .) + labs(x="Interval") + labs(y="Number of Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-15-1.png)
-
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)

@@ -1,9 +1,10 @@
 ---
 title: 'Reproducible Research: Peer Assessment 1'
 author: "Steve Chiu"
-date: "11 April 2016"
-output: html_document
-keep_md: yes
+date: "12 April 2016"
+output: 
+  html_document:
+    keep_md: true
 ---
 
 
@@ -40,13 +41,9 @@ mean(daysteps)
 A histogram was saved as *plot1.png*, with the mean marked in red line.
 
 ```{r, echo=TRUE}
-png("figure/plot1.png")
 hist(daysteps, xlab = "Total Number of Steps Taken Per Day", main = "Histogram")
 abline(v=mean(daysteps), col = "red", lwd = 2)
-dev.off()
-```
 
-```{r, echo=TRUE}
 print("Medium = ")
 median(daysteps)
 ```
@@ -61,9 +58,7 @@ timesteps <- with(actclean, tapply(steps, interval, mean))
 meansteps <- data.frame(as.numeric(names(timesteps)), timesteps)
 names(meansteps) = c("interval", "steps")
 
-png("figure/plot2.png")
 plot(meansteps, type="l", xlab="5-min Intervals", ylab="Average Number of Steps Across All Days", main="Average Daily Activity Pattern")
-dev.off()
 ```
 
 The maximum of steps can be provided by the *max* and *which.max* functions:
@@ -113,10 +108,8 @@ mean(daystepsnew)
 A histogram was created in *plot3.png*, with the mean marked as green line.
 
 ```{r, echo=TRUE}
-png("figure/plot3.png")
 hist(daystepsnew, xlab = "New Total Number of Steps Taken Per Day", main = "Histogram")
 abline(v=mean(daystepsnew), col = "green", lwd = 2)
-dev.off()
 
 print("Medium = ")
 median(daystepsnew)
@@ -151,8 +144,6 @@ meanstepswd <- cbind(meanstepswd, wde="weekday")
 meanstepswe <- cbind(meanstepswe, wde="weekend")
 meanstepswde <- rbind(meanstepswe, meanstepswd)
 
-png("figure/plot4.png")
 g <- ggplot(meanstepswde, aes(interval, steps))
 g + geom_line() + facet_grid(wde ~ .) + labs(x="Interval") + labs(y="Number of Steps")
-dev.off()
 ```
